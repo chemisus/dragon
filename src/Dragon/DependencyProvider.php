@@ -27,5 +27,11 @@ namespace Dragon;
  */
 interface DependencyProvider
 {
+    /**
+     * Provides a value to be injected.
+     *
+     * @param DependencyContainer $container
+     * @return mixed
+     */
     public function provide(DependencyContainer $container);
 }

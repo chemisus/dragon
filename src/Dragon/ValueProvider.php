@@ -21,25 +21,26 @@ namespace Dragon;
 use Closure;
 
 /**
- * Invokes a callback and provides the result.
+ * A very basic provider. When provide() is called, this just returns
+ * the value that was supplied to the constructor. Nothing fancy.
  *
- * @name CallbackProvider
+ * @name ValueProvider
  * @author Terrence Howard <chemisus@gmail.com>
  * @package Dragon
  */
-class CallbackProvider implements DependencyProvider
+class ValueProvider implements DependencyProvider
 {
     /**
-     * @var callable
+     * @var mixed
      */
-    private $callback;
+    private $value;
 
     /**
-     * @param callable $callback
+     * @param mixed $value
      */
-    public function __construct(Closure $callback)
+    public function __construct($value)
     {
-        $this->callback = $callback;
+        $this->value = $value;
     }
 
     /**
@@ -50,6 +51,6 @@ class CallbackProvider implements DependencyProvider
      */
     public function provide(DependencyContainer $container)
     {
-        return call_user_func_array($this->callback, []);
+        return $this->value;
     }
 }

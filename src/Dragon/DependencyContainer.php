@@ -32,9 +32,20 @@ class DependencyContainer
      */
     private $providers = [];
 
-    public function get($key)
+    /**
+     * Provides a value for the specified key.
+     *
+     * @param string $key
+     * @param DependencyContainer $container
+     * @return mixed
+     */
+    public function get($key, DependencyContainer $container = null)
     {
-        return $this->providers[$key]->provide($this);
+        if ($container === null) {
+            $container = $this;
+        }
+
+        return $this->providers[$key]->provide($container);
     }
 
     public function set($key, DependencyProvider $value)
@@ -51,5 +62,10 @@ class DependencyContainer
         }
 
         $this->set($key, $value);
+    }
+
+    public function value($key, $value)
+    {
+        $this->set($key, new ValueProvider($value));
     }
 }
