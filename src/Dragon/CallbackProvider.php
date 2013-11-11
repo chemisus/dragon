@@ -18,8 +18,6 @@
 
 namespace Dragon;
 
-use Closure;
-
 /**
  * Invokes a callback and provides the result.
  *
