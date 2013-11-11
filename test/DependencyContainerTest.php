@@ -16,26 +16,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Dragon;
+namespace Test;
 
-/**
- *
- *
- * @name DependencyContainer
- * @author Terrence Howard <chemisus@gmail.com>
- * @package Dragon
- */
-class DependencyContainer
+use Dragon\DependencyContainer;
+use PHPUnit_Framework_TestCase;
+
+class DependencyContainerTest extends PHPUnit_Framework_TestCase
 {
-    private $providers = [];
-
-    public function get($key)
+    public function testCallback()
     {
-        return $this->providers[$key]();
-    }
+        $container = new DependencyContainer();
 
-    public function set($key, $value)
-    {
-        $this->providers[$key] = $value;
+        $container->set(
+            'a',
+            function () {
+                return 'A';
+            }
+        );
+
+        $actual = $container->get('a');
+
+        $expect = 'A';
+
+        $this->assertEquals($expect, $actual);
     }
 }

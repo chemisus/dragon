@@ -1,6 +1,14 @@
 # Dragon
 
-1. Dependency Injection
-2. Request Routing
-3. Response
+Dragon is a PHP Framework. The main focuses for Dragon are the following:
+
+* Dependency injection via type hinting
+* Request routing
+* Responses
+
+## Dependency Injection
+
+## Request Routing
+
+## Response
 
