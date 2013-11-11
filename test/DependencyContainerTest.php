@@ -18,9 +18,10 @@
 
 namespace Test;
 
-use Slinpin\DependencyContainer;
-use Slinpin\ValueProvider;
 use PHPUnit_Framework_TestCase;
+use Slinpin\DependencyContainer;
+use Slinpin\DependencyNotFoundException;
+use Slinpin\ValueProvider;
 
 class DependencyContainerTest extends PHPUnit_Framework_TestCase
 {
@@ -45,7 +46,7 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
             }
         );
 
-        $actual = $this->container->get('a');
+        $actual = $this->container->provide('a');
 
         $expect = 'A';
 
@@ -63,8 +64,8 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
             }
         );
 
-        $this->container->get('a');
-        $actual = $this->container->get('a');
+        $this->container->provide('a');
+        $actual = $this->container->provide('a');
 
         $expect = 0;
 
@@ -83,8 +84,8 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
             false
         );
 
-        $this->container->get('a');
-        $actual = $this->container->get('a');
+        $this->container->provide('a');
+        $actual = $this->container->provide('a');
 
         $expect = 1;
 
@@ -95,19 +96,19 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
     {
         $this->container->value('a', 'A');
 
-        $actual = $this->container->get('a');
+        $actual = $this->container->provide('a');
 
         $expect = 'A';
 
         $this->assertEquals($expect, $actual);
     }
 
-    public function testGetAll()
+    public function testProvideAll()
     {
         $this->container->value('a', 'A');
         $this->container->value('b', 'B');
 
-        $actual = $this->container->getAll(['a', 'b']);
+        $actual = $this->container->provideAll(['a', 'b']);
 
         $expect = ['A', 'B'];
 
@@ -129,7 +130,7 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
             }
         );
 
-        $actual = $this->container->get('callback');
+        $actual = $this->container->provide('callback');
 
         $this->assertEquals($expect, $actual);
     }
@@ -139,8 +140,29 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
         $provider = new ValueProvider('A');
         $this->container->value('Slinpin\DependencyProvider', $provider);
         $this->container->factory('a', 'Slinpin\CachedProvider');
-        $actual = $this->container->get('a')->provide($this->container);
+        $actual = $this->container->provide('a')->provide($this->container);
         $expect = 'A';
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @expectedException \Slinpin\DependencyNotFoundException
+     */
+    public function testDependencyNotFound()
+    {
+        $this->container->get('a');
+    }
+
+    public function testGet()
+    {
+        $this->container->value('a', 'A');
+
+        $container = new DependencyContainer($this->container);
+
+        $expect = 'A';
+
+        $actual = $container->provide('a');
 
         $this->assertEquals($expect, $actual);
     }
