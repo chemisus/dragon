@@ -18,39 +18,13 @@
 
 namespace Dragon;
 
-use Closure;
-
 /**
- * A very basic provider. When provide() is called, this just returns
- * the value that was supplied to the constructor. Nothing fancy.
  *
- * @name ValueProvider
+ * @name Request
  * @author Terrence Howard <chemisus@gmail.com>
  * @package Dragon
  */
-class ValueProvider implements DependencyProvider
+class Request
 {
-    /**
-     * @var mixed
-     */
-    private $value;
 
-    /**
-     * @param mixed $value
-     */
-    public function __construct($value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * Provides a value to be injected.
-     *
-     * @param DependencyContainer $container
-     * @return mixed
-     */
-    public function provide(DependencyContainer $container)
-    {
-        return $this->value;
-    }
 }

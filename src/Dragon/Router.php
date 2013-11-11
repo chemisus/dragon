@@ -20,29 +20,11 @@ namespace Dragon;
 
 /**
  *
- *
- * @name CachedProvider
+ * @name Router
  * @author Terrence Howard <chemisus@gmail.com>
  * @package Dragon
  */
-class CachedProvider implements DependencyProvider
+class Router
 {
-    private $provider;
-    private $value;
-    private $cached = false;
 
-    public function __construct(DependencyProvider $provider)
-    {
-        $this->provider = $provider;
-    }
-
-    public function provide(DependencyContainer $container)
-    {
-        if (!$this->cached) {
-            $this->cached = true;
-            $this->value  = $this->provider->provide($container);
-        }
-
-        return $this->value;
-    }
 }

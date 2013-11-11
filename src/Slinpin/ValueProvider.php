@@ -16,22 +16,41 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Dragon;
+namespace Slinpin;
+
+use Closure;
 
 /**
+ * A very basic provider. When provide() is called, this just returns
+ * the value that was supplied to the constructor. Nothing fancy.
  *
- *
- * @name DependencyProvider
+ * @name ValueProvider
  * @author Terrence Howard <chemisus@gmail.com>
- * @package Dragon
+ * @package Slinpin
  */
-interface DependencyProvider
+class ValueProvider implements DependencyProvider
 {
+    /**
+     * @var mixed
+     */
+    private $value;
+
+    /**
+     * @param mixed $value
+     */
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
+
     /**
      * Provides a value to be injected.
      *
      * @param DependencyContainer $container
      * @return mixed
      */
-    public function provide(DependencyContainer $container);
+    public function provide(DependencyContainer $container)
+    {
+        return $this->value;
+    }
 }

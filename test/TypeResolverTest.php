@@ -18,9 +18,9 @@
 
 namespace Test;
 
-use Dragon\CachedProvider;
-use Dragon\ConstructorTypeResolver;
-use Dragon\TypeResolver;
+use Slinpin\CachedProvider;
+use Slinpin\ConstructorTypeResolver;
+use Slinpin\TypeResolver;
 use PHPUnit_Framework_TestCase;
 
 class TypeResolverTest extends PHPUnit_Framework_TestCase
@@ -36,7 +36,7 @@ class TypeResolverTest extends PHPUnit_Framework_TestCase
 
         $resolver = new TypeResolver();
 
-        $expect = ['Test\TypeResolverTest', 'Dragon\TypeResolver'];
+        $expect = ['Test\TypeResolverTest', 'Slinpin\TypeResolver'];
 
         $actual = $resolver->resolve($parameters);
 
@@ -45,11 +45,11 @@ class TypeResolverTest extends PHPUnit_Framework_TestCase
 
     public function testResolveConstructor()
     {
-//        $class_name = 'Dragon\ConstructorTypeResolver';
+//        $class_name = 'Slinpin\ConstructorTypeResolver';
 //
 //        $resolver = new TypeResolver();
 //
-//        $expect = ['Dragon\TypeResolver'];
+//        $expect = ['Slinpin\TypeResolver'];
 //
 //        $actual = $resolver->resolveConstructor($class_name);
 //
@@ -60,7 +60,7 @@ class TypeResolverTest extends PHPUnit_Framework_TestCase
     {
         $resolver = new TypeResolver();
 
-        $expect = ['Test\TypeResolverTest', 'Dragon\TypeResolver'];
+        $expect = ['Test\TypeResolverTest', 'Slinpin\TypeResolver'];
 
         $callback = function (TypeResolverTest $a, TypeResolver $b) {
         };
@@ -78,7 +78,7 @@ class TypeResolverTest extends PHPUnit_Framework_TestCase
     {
         $resolver = new TypeResolver();
 
-        $expect = ['Dragon\TypeResolver', 'Dragon\CachedProvider'];
+        $expect = ['Slinpin\TypeResolver', 'Slinpin\CachedProvider'];
 
         $actual = $resolver->resolveMethod('Test\TypeResolverTest', 'dummyForResolveMethod');
 

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Dragon;
+namespace Slinpin;
 
 use ReflectionClass;
 use ReflectionFunction;
@@ -27,7 +27,7 @@ use ReflectionMethod;
  *
  * @name TypeResolver
  * @author Terrence Howard <chemisus@gmail.com>
- * @package Dragon
+ * @package Slinpin
  */
 class TypeResolver
 {

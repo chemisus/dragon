@@ -16,50 +16,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Dragon;
+namespace Slinpin;
 
 /**
- * Invokes a callback and provides the result.
  *
- * @name CallbackProvider
+ *
+ * @name DependencyProvider
  * @author Terrence Howard <chemisus@gmail.com>
- * @package Dragon
+ * @package Slinpin
  */
-class CallbackProvider implements DependencyProvider
+interface DependencyProvider
 {
-    /**
-     * @var callable
-     */
-    private $callback;
-
-    /**
-     * @var TypeResolver
-     */
-    private $type_resolver;
-
-    /**
-     * @param callable $callback
-     * @param TypeResolver $type_resolver
-     */
-    public function __construct(callable $callback, TypeResolver $type_resolver)
-    {
-        $this->callback = $callback;
-
-        $this->type_resolver = $type_resolver;
-    }
-
     /**
      * Provides a value to be injected.
      *
      * @param DependencyContainer $container
      * @return mixed
      */
-    public function provide(DependencyContainer $container)
-    {
-        $keys = $this->type_resolver->resolveFunction($this->callback);
-
-        $parameters = $container->getAll($keys);
-
-        return call_user_func_array($this->callback, $parameters);
-    }
+    public function provide(DependencyContainer $container);
 }

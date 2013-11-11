@@ -15,7 +15,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Dragon": "src/"
+            "Dragon": "src/",
+            "Slinpin": "src/"
         }
     }
 }

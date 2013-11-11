@@ -18,8 +18,8 @@
 
 namespace Test;
 
-use Dragon\DependencyContainer;
-use Dragon\ValueProvider;
+use Slinpin\DependencyContainer;
+use Slinpin\ValueProvider;
 use PHPUnit_Framework_TestCase;
 
 class DependencyContainerTest extends PHPUnit_Framework_TestCase
@@ -120,7 +120,7 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
 
         $container = $this->container;
 
-        $this->container->value('Dragon\ValueProvider', new ValueProvider('A'));
+        $this->container->value('Slinpin\ValueProvider', new ValueProvider('A'));
 
         $this->container->callback(
             'callback',
@@ -137,8 +137,8 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
     public function testFactory()
     {
         $provider = new ValueProvider('A');
-        $this->container->value('Dragon\DependencyProvider', $provider);
-        $this->container->factory('a', 'Dragon\CachedProvider');
+        $this->container->value('Slinpin\DependencyProvider', $provider);
+        $this->container->factory('a', 'Slinpin\CachedProvider');
         $actual = $this->container->get('a')->provide($this->container);
         $expect = 'A';
 
