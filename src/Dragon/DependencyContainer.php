@@ -33,6 +33,27 @@ class DependencyContainer
     private $providers = [];
 
     /**
+     * @var DependencyContainer
+     */
+    private $parent_container;
+
+    /**
+     * @var TypeResolver
+     */
+    private $type_resolver;
+
+    public function __construct(DependencyContainer $parent_container = null, TypeResolver $type_resolver = null)
+    {
+        $this->parent_container = $parent_container;
+
+        if ($type_resolver === null) {
+            $type_resolver = new TypeResolver();
+        }
+
+        $this->type_resolver = $type_resolver;
+    }
+
+    /**
      * Provides a value for the specified key. If container is null, then it will be replaced with
      * the current container.
      *
@@ -89,7 +110,7 @@ class DependencyContainer
      */
     public function callback($key, callable $value, $cached = true)
     {
-        $value = new CallbackProvider($value);
+        $value = new CallbackProvider($value, $this->type_resolver);
 
         if ($cached) {
             $value = new CachedProvider($value);

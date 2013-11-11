@@ -33,11 +33,19 @@ class CallbackProvider implements DependencyProvider
     private $callback;
 
     /**
-     * @param callable $callback
+     * @var TypeResolver
      */
-    public function __construct(callable $callback)
+    private $type_resolver;
+
+    /**
+     * @param callable $callback
+     * @param TypeResolver $type_resolver
+     */
+    public function __construct(callable $callback, TypeResolver $type_resolver)
     {
         $this->callback = $callback;
+
+        $this->type_resolver = $type_resolver;
     }
 
     /**
@@ -48,6 +56,10 @@ class CallbackProvider implements DependencyProvider
      */
     public function provide(DependencyContainer $container)
     {
-        return call_user_func_array($this->callback, []);
+        $keys = $this->type_resolver->resolveFunction($this->callback);
+
+        $parameters = $container->getAll($keys);
+
+        return call_user_func_array($this->callback, $parameters);
     }
 }

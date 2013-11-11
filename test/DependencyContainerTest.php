@@ -19,6 +19,7 @@
 namespace Test;
 
 use Dragon\DependencyContainer;
+use Dragon\ValueProvider;
 use PHPUnit_Framework_TestCase;
 
 class DependencyContainerTest extends PHPUnit_Framework_TestCase
@@ -106,6 +107,26 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
         $actual = $this->container->getAll(['a', 'b']);
 
         $expect = ['A', 'B'];
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    public function testCallbackWithParameters()
+    {
+        $expect = 'A';
+
+        $container = $this->container;
+
+        $this->container->value('Dragon\ValueProvider', new ValueProvider('A'));
+
+        $this->container->callback(
+            'callback',
+            function (ValueProvider $value_provider) use ($container) {
+                return $value_provider->provide($container);
+            }
+        );
+
+        $actual = $this->container->get('callback');
 
         $this->assertEquals($expect, $actual);
     }
