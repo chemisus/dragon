@@ -33,7 +33,8 @@ class DependencyContainer
     private $providers = [];
 
     /**
-     * Provides a value for the specified key.
+     * Provides a value for the specified key. If container is null, then it will be replaced with
+     * the current container.
      *
      * @param string $key
      * @param DependencyContainer $container
@@ -46,6 +47,26 @@ class DependencyContainer
         }
 
         return $this->providers[$key]->provide($container);
+    }
+
+    /**
+     * Returns the values provided for the specified keys.
+     *
+     * If container is null, then it will be replaced with the current container.
+     *
+     * @param string[] $keys
+     * @param DependencyContainer $container
+     * @return mixed[]
+     */
+    public function getAll(array $keys, DependencyContainer $container = null)
+    {
+        $values = [];
+
+        foreach ($keys as $key) {
+            $values[] = $this->get($key, $container);
+        }
+
+        return $values;
     }
 
     /**

@@ -97,4 +97,16 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expect, $actual);
     }
+
+    public function testGetAll()
+    {
+        $this->container->value('a', 'A');
+        $this->container->value('b', 'B');
+
+        $actual = $this->container->getAll(['a', 'b']);
+
+        $expect = ['A', 'B'];
+
+        $this->assertEquals($expect, $actual);
+    }
 }
