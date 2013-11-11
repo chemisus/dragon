@@ -21,35 +21,28 @@ namespace Dragon;
 /**
  *
  *
- * @name DependencyContainer
+ * @name CachedProvider
  * @author Terrence Howard <chemisus@gmail.com>
  * @package Dragon
  */
-class DependencyContainer
+class CachedProvider implements DependencyProvider
 {
-    /**
-     * @var DependencyProvider[]
-     */
-    private $providers = [];
+    private $provider;
+    private $value;
+    private $cached = false;
 
-    public function get($key)
+    public function __construct(DependencyProvider $provider)
     {
-        return $this->providers[$key]->provide($this);
+        $this->provider = $provider;
     }
 
-    public function set($key, DependencyProvider $value)
+    public function provide(DependencyContainer $container)
     {
-        $this->providers[$key] = $value;
-    }
-
-    public function callback($key, $value, $cached = true)
-    {
-        $value = new CallbackProvider($value);
-
-        if ($cached) {
-            $value = new CachedProvider($value);
+        if (!$this->cached) {
+            $this->cached = true;
+            $this->value  = $this->provider->provide($container);
         }
 
-        $this->set($key, $value);
+        return $this->value;
     }
 }

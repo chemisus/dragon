@@ -27,7 +27,7 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
     {
         $container = new DependencyContainer();
 
-        $container->set(
+        $container->callback(
             'a',
             function () {
                 return 'A';
@@ -37,6 +37,27 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
         $actual = $container->get('a');
 
         $expect = 'A';
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    public function testCache()
+    {
+        $container = new DependencyContainer();
+
+        $count = 0;
+
+        $container->callback(
+            'a',
+            function () use (&$count) {
+                return $count++;
+            }
+        );
+
+        $container->get('a');
+        $actual = $container->get('a');
+
+        $expect = 0;
 
         $this->assertEquals($expect, $actual);
     }

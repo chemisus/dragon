@@ -18,38 +18,26 @@
 
 namespace Dragon;
 
+use Closure;
+
 /**
  *
  *
- * @name DependencyContainer
+ * @name CallbackProvider
  * @author Terrence Howard <chemisus@gmail.com>
  * @package Dragon
  */
-class DependencyContainer
+class CallbackProvider implements DependencyProvider
 {
-    /**
-     * @var DependencyProvider[]
-     */
-    private $providers = [];
+    private $callback;
 
-    public function get($key)
+    public function __construct(Closure $callback)
     {
-        return $this->providers[$key]->provide($this);
+        $this->callback = $callback;
     }
 
-    public function set($key, DependencyProvider $value)
+    public function provide(DependencyContainer $container)
     {
-        $this->providers[$key] = $value;
-    }
-
-    public function callback($key, $value, $cached = true)
-    {
-        $value = new CallbackProvider($value);
-
-        if ($cached) {
-            $value = new CachedProvider($value);
-        }
-
-        $this->set($key, $value);
+        return call_user_func_array($this->callback, []);
     }
 }
