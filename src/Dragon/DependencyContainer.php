@@ -48,12 +48,25 @@ class DependencyContainer
         return $this->providers[$key]->provide($container);
     }
 
+    /**
+     * Adds a provider for a key.
+     *
+     * @param string $key
+     * @param DependencyProvider $value
+     */
     public function set($key, DependencyProvider $value)
     {
         $this->providers[$key] = $value;
     }
 
-    public function callback($key, $value, $cached = true)
+    /**
+     * Adds a callback provider.
+     *
+     * @param string $key
+     * @param Closure $value
+     * @param bool $cached
+     */
+    public function callback($key, Closure $value, $cached = true)
     {
         $value = new CallbackProvider($value);
 
@@ -64,6 +77,12 @@ class DependencyContainer
         $this->set($key, $value);
     }
 
+    /**
+     * Adds a value provider.
+     *
+     * @param string $key
+     * @param mixed $value
+     */
     public function value($key, $value)
     {
         $this->set($key, new ValueProvider($value));
