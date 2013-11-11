@@ -63,10 +63,10 @@ class DependencyContainer
      * Adds a callback provider.
      *
      * @param string $key
-     * @param Closure $value
+     * @param callable $value
      * @param bool $cached
      */
-    public function callback($key, Closure $value, $cached = true)
+    public function callback($key, callable $value, $cached = true)
     {
         $value = new CallbackProvider($value);
 

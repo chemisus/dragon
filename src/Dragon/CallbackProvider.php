@@ -37,7 +37,7 @@ class CallbackProvider implements DependencyProvider
     /**
      * @param callable $callback
      */
-    public function __construct(Closure $callback)
+    public function __construct(callable $callback)
     {
         $this->callback = $callback;
     }
