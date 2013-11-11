@@ -105,12 +105,12 @@ class DependencyContainer
      * Adds a callback provider.
      *
      * @param string $key
-     * @param callable $value
+     * @param callable $callback
      * @param bool $cached
      */
-    public function callback($key, callable $value, $cached = true)
+    public function callback($key, callable $callback, $cached = true)
     {
-        $value = new CallbackProvider($value, $this->type_resolver);
+        $value = new CallbackProvider($callback, $this->type_resolver);
 
         if ($cached) {
             $value = new CachedProvider($value);
@@ -128,5 +128,12 @@ class DependencyContainer
     public function value($key, $value)
     {
         $this->set($key, new ValueProvider($value));
+    }
+
+    public function factory($key, $class_name)
+    {
+        $value = new FactoryProvider($class_name, $this->type_resolver);
+
+        $this->set($key, $value);
     }
 }

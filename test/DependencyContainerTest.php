@@ -24,6 +24,9 @@ use PHPUnit_Framework_TestCase;
 
 class DependencyContainerTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var DependencyContainer
+     */
     private $container;
 
     public function setUp()
@@ -127,6 +130,17 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
         );
 
         $actual = $this->container->get('callback');
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    public function testFactory()
+    {
+        $provider = new ValueProvider('A');
+        $this->container->value('Dragon\DependencyProvider', $provider);
+        $this->container->factory('a', 'Dragon\CachedProvider');
+        $actual = $this->container->get('a')->provide($this->container);
+        $expect = 'A';
 
         $this->assertEquals($expect, $actual);
     }
