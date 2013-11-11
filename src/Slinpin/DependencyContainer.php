@@ -74,7 +74,7 @@ class DependencyContainer
             return $this->parent_container->get($key);
         }
 
-        throw new Exception('provider ' . $key . ' not found.');
+        throw new DependencyNotFoundException($key);
     }
 
     /**
