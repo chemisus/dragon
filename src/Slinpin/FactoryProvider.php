@@ -60,7 +60,7 @@ class FactoryProvider implements DependencyProvider
     {
         $keys = $this->type_resolver->resolveConstructor($this->class_name);
 
-        $parameters = $container->getAll($keys);
+        $parameters = $container->provideAll($keys);
 
         $class = new ReflectionClass($this->class_name);
 

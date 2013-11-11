@@ -18,6 +18,8 @@
 
 namespace Slinpin;
 
+use Mockery\CountValidator\Exception;
+
 /**
  *
  *
@@ -58,20 +60,33 @@ class DependencyContainer
     }
 
     /**
+     * @param $key
+     * @return DependencyProvider
+     * @throws \Exception
+     */
+    public function get($key)
+    {
+        if (isset($this->providers[$key])) {
+            return $this->providers[$key];
+        }
+
+        if ($this->parent_container !== null) {
+            return $this->parent_container->get($key);
+        }
+
+        throw new Exception('provider ' . $key . ' not found.');
+    }
+
+    /**
      * Provides a value for the specified key. If container is null, then it will be replaced with
      * the current container.
      *
      * @param string $key
-     * @param DependencyContainer $container
      * @return mixed
      */
-    public function get($key, DependencyContainer $container = null)
+    public function provide($key)
     {
-        if ($container === null) {
-            $container = $this;
-        }
-
-        return $this->providers[$key]->provide($container);
+        return $this->get($key)->provide($this);
     }
 
     /**
@@ -80,15 +95,14 @@ class DependencyContainer
      * If container is null, then it will be replaced with the current container.
      *
      * @param string[] $keys
-     * @param DependencyContainer $container
      * @return mixed[]
      */
-    public function getAll(array $keys, DependencyContainer $container = null)
+    public function provideAll(array $keys)
     {
         $values = [];
 
         foreach ($keys as $key) {
-            $values[] = $this->get($key, $container);
+            $values[] = $this->provide($key);
         }
 
         return $values;

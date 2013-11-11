@@ -58,7 +58,7 @@ class CallbackProvider implements DependencyProvider
     {
         $keys = $this->type_resolver->resolveFunction($this->callback);
 
-        $parameters = $container->getAll($keys);
+        $parameters = $container->provideAll($keys);
 
         return call_user_func_array($this->callback, $parameters);
     }
