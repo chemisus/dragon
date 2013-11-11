@@ -21,7 +21,7 @@ namespace Dragon;
 /**
  *
  *
- * @name Provider
+ * @name DependencyProvider
  * @author Terrence Howard <chemisus@gmail.com>
  * @package Dragon
  */

@@ -42,6 +42,10 @@ class DependencyContainer
      */
     private $type_resolver;
 
+    /**
+     * @param DependencyContainer $parent_container
+     * @param TypeResolver $type_resolver
+     */
     public function __construct(DependencyContainer $parent_container = null, TypeResolver $type_resolver = null)
     {
         $this->parent_container = $parent_container;
@@ -130,6 +134,12 @@ class DependencyContainer
         $this->set($key, new ValueProvider($value));
     }
 
+    /**
+     * Creates an object of the given class.
+     *
+     * @param string $key
+     * @param string $class_name
+     */
     public function factory($key, $class_name)
     {
         $value = new FactoryProvider($class_name, $this->type_resolver);
