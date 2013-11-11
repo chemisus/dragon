@@ -23,18 +23,25 @@ use PHPUnit_Framework_TestCase;
 
 class DependencyContainerTest extends PHPUnit_Framework_TestCase
 {
+    private $container;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->container = new DependencyContainer();
+    }
+
     public function testCallback()
     {
-        $container = new DependencyContainer();
-
-        $container->callback(
+        $this->container->callback(
             'a',
             function () {
                 return 'A';
             }
         );
 
-        $actual = $container->get('a');
+        $actual = $this->container->get('a');
 
         $expect = 'A';
 
@@ -43,19 +50,17 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
 
     public function testCacheCallback()
     {
-        $container = new DependencyContainer();
-
         $count = 0;
 
-        $container->callback(
+        $this->container->callback(
             'a',
             function () use (&$count) {
                 return $count++;
             }
         );
 
-        $container->get('a');
-        $actual = $container->get('a');
+        $this->container->get('a');
+        $actual = $this->container->get('a');
 
         $expect = 0;
 
@@ -64,11 +69,9 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
 
     public function testNotCacheCallback()
     {
-        $container = new DependencyContainer();
-
         $count = 0;
 
-        $container->callback(
+        $this->container->callback(
             'a',
             function () use (&$count) {
                 return $count++;
@@ -76,8 +79,8 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
             false
         );
 
-        $container->get('a');
-        $actual = $container->get('a');
+        $this->container->get('a');
+        $actual = $this->container->get('a');
 
         $expect = 1;
 
@@ -86,11 +89,9 @@ class DependencyContainerTest extends PHPUnit_Framework_TestCase
 
     public function testValue()
     {
-        $container = new DependencyContainer();
+        $this->container->value('a', 'A');
 
-        $container->value('a', 'A');
-
-        $actual = $container->get('a');
+        $actual = $this->container->get('a');
 
         $expect = 'A';
 
