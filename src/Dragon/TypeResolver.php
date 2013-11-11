@@ -18,6 +18,10 @@
 
 namespace Dragon;
 
+use ReflectionClass;
+use ReflectionFunction;
+use ReflectionMethod;
+
 /**
  * Resolves the types of a list of parameters.
  *
@@ -42,5 +46,57 @@ class TypeResolver
         }
 
         return $values;
+    }
+
+    /**
+     * Resolves the parameters for a constructor.
+     *
+     * @param $class_name
+     * @return string[]
+     */
+    public function resolveConstructor($class_name)
+    {
+        $class = new ReflectionClass($class_name);
+
+        $parameters = [];
+
+        $constructor = $class->getConstructor();
+
+        if ($constructor !== null) {
+            $parameters = $constructor->getParameters();
+        }
+
+        return $this->resolve($parameters);
+    }
+
+    /**
+     * Resolves the parameters for a callback.
+     *
+     * @param $callback
+     * @return string[]
+     */
+    public function resolveFunction($callback)
+    {
+        $function = new ReflectionFunction($callback);
+
+        $parameters = $function->getParameters();
+
+        return $this->resolve($parameters);
+    }
+
+    /**
+     * Resolves the parameters for a method.
+     *
+     * @param $class
+     * @param $name
+     * @return string[]
+     */
+    public function resolveMethod($class, $name)
+    {
+        $method = new ReflectionMethod($class, $name);
+
+        $parameters = $method->getParameters();
+
+        return $this->resolve($parameters);
     }
 }
