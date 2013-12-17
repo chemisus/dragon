@@ -88,4 +88,19 @@ class PathMethodRouteTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($route->matches($request));
     }
+
+    public function testParameters()
+    {
+        $request = $this->mockRequest('GET', '/5/6', [], []);
+
+        $route = new PathMethodRoute('GET', '/\/(?P<param1>\d+)\/(?P<param2>\d+)/', [], []);
+
+        $expect = ['/5/6', 5, 'param1' => '5', 6, 'param2' => 6];
+
+        $route->matches($request);
+
+        $actual = $route->parameters();
+
+        $this->assertEquals($expect, $actual);
+    }
 }
