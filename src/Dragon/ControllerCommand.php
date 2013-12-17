@@ -15,7 +15,7 @@ class ControllerCommand implements Command
     private $class;
 
     /**
-     * @var method
+     * @var string
      */
     private $method;
 
@@ -31,16 +31,21 @@ class ControllerCommand implements Command
         $this->method    = $method;
     }
 
+    /**
+     * @return string
+     */
     public function targetClass()
     {
         return $this->class;
     }
 
+    /**
+     * @return string
+     */
     public function targetMethod()
     {
         return $this->method;
     }
-
 
     /**
      * Creates an instance of the controller, then invokes the controller's method.
