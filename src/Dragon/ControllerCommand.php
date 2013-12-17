@@ -2,20 +2,44 @@
 
 namespace Dragon;
 
-class CallbackCommand
+class ControllerCommand implements Command
 {
-    private $callback;
+    /**
+     * @var DependencyContainer
+     */
+    private $container;
 
-    public function __construct($callback)
+    /**
+     * @var string
+     */
+    private $class;
+
+    /**
+     * @var method
+     */
+    private $method;
+
+    /**
+     * @param DependencyContainer $container
+     * @param string $class
+     * @param string $method
+     */
+    public function __construct(DependencyContainer $container, $class, $method)
     {
-        $this->callback = $callback;
+        $this->container = $container;
+        $this->class     = $class;
+        $this->method    = $method;
     }
 
     /**
+     * Creates an instance of the controller, then invokes the controller's method.
+     *
      * @return Response
      */
     public function response()
     {
-        return call_user_func_array($this->callback, []);
+        $object = $this->container->instance($this->class);
+
+        return $this->container->invoke($object, $this->method);
     }
 }
