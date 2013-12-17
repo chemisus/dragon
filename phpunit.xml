@@ -16,6 +16,13 @@
         </testsuite>
     </testsuites>
 
+    <filter>
+        <whitelist>
+            <directory>src</directory>
+            <directory>test</directory>
+        </whitelist>
+    </filter>
+
     <logging>
         <log type="coverage-html" target="build/coverage" title="Dragon"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>

@@ -31,6 +31,17 @@ class ControllerCommand implements Command
         $this->method    = $method;
     }
 
+    public function targetClass()
+    {
+        return $this->class;
+    }
+
+    public function targetMethod()
+    {
+        return $this->method;
+    }
+
+
     /**
      * Creates an instance of the controller, then invokes the controller's method.
      *
