@@ -23,7 +23,7 @@ class CallbackCommandTest extends PHPUnit_Framework_TestCase
         };
 
         $container = Mockery::mock('Dragon\DependencyContainer');
-        $container->shouldReceive('callback')->once()->with($callback)->andReturn($expect);
+        $container->shouldReceive('call')->once()->with($callback)->andReturn($expect);
 
         $command = new CallbackCommand($container, $callback);
 

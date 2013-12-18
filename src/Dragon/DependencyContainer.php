@@ -21,5 +21,5 @@ interface DependencyContainer
      * @param callable $callback
      * @return mixed
      */
-    public function callback(callable $callback);
+    public function call(callable $callback);
 }

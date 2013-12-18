@@ -25,6 +25,6 @@ class CallbackCommand implements Command
      */
     public function response()
     {
-        return $this->container->callback($this->callback);
+        return $this->container->call($this->callback);
     }
 }
