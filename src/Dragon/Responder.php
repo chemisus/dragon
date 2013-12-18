@@ -2,7 +2,7 @@
 
 namespace Dragon;
 
-interface Command
+interface Responder
 {
     /**
      * @return Response

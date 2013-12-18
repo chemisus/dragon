@@ -26,7 +26,7 @@ class CommandFactoryTest extends PHPUnit_Framework_TestCase
 
         $actual = $factory->makeControllerCommand($container, $class, $method);
 
-        $this->assertInstanceOf('Dragon\ControllerCommand', $actual);
+        $this->assertInstanceOf('Dragon\ControllerResponder', $actual);
         $this->assertEquals($class, $actual->targetClass());
         $this->assertEquals($method, $actual->targetMethod());
     }

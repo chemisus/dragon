@@ -2,11 +2,11 @@
 
 namespace Test\Dragon;
 
-use Dragon\CallbackCommand;
+use Dragon\CallbackResponder;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
-class CallbackCommandTest extends PHPUnit_Framework_TestCase
+class CallbackResponderTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -25,7 +25,7 @@ class CallbackCommandTest extends PHPUnit_Framework_TestCase
         $container = Mockery::mock('Dragon\DependencyContainer');
         $container->shouldReceive('call')->once()->with($callback)->andReturn($expect);
 
-        $command = new CallbackCommand($container, $callback);
+        $command = new CallbackResponder($container, $callback);
 
         $actual = $command->response();
 

@@ -2,7 +2,7 @@
 
 namespace Dragon;
 
-class CallbackCommand implements Command
+class CallbackResponder implements Responder
 {
     /**
      * @var DependencyContainer

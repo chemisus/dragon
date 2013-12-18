@@ -2,7 +2,7 @@
 
 namespace Test\Dragon;
 
-use Dragon\ControllerCommand;
+use Dragon\ControllerResponder;
 use Dragon\Router;
 use Mockery;
 use PHPUnit_Framework_TestCase;

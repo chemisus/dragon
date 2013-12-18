@@ -2,7 +2,7 @@
 
 namespace Dragon;
 
-class ControllerCommand implements Command
+class ControllerResponder implements Responder
 {
     /**
      * @var DependencyContainer
