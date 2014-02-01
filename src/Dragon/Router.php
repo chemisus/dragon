@@ -26,7 +26,7 @@ class Router
         foreach ($this->routes as $route) {
             $results = $route->validate($request);
 
-            if ($results) {
+            if ($results->matched()) {
                 return $results;
             }
         }
