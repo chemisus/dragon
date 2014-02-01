@@ -21,6 +21,8 @@ class ControllerResponseFactory implements ResponseFactory
      */
     public function response(DependencyContainer $container)
     {
-        return $container->invoke($this->object, $this->method);
+        $controller = $container->instance($this->class);
+
+        return $container->invoke($controller, $this->method);
     }
 }
