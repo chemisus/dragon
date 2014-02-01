@@ -22,7 +22,7 @@ class CallbackResponderTest extends PHPUnit_Framework_TestCase
         $callback = function () {
         };
 
-        $container = Mockery::mock('Dragon\DependencyContainer');
+        $container = Mockery::mock('Needle\DependencyContainer');
         $container->shouldReceive('call')->once()->with($callback)->andReturn($expect);
 
         $command = new CallbackResponder($container, $callback);

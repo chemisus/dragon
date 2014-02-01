@@ -2,6 +2,8 @@
 
 namespace Dragon;
 
+use Needle\DependencyContainer;
+
 class ControllerResponder implements Responder
 {
     /**

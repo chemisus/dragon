@@ -24,7 +24,7 @@ class ControllerResponderTest extends PHPUnit_Framework_TestCase
 
         $controller = Mockery::mock();
 
-        $container = Mockery::mock('Dragon\DependencyContainer');
+        $container = Mockery::mock('Needle\DependencyContainer');
         $container->shouldReceive('instance')->once()->with($class)->andReturn($controller);
         $container->shouldReceive('invoke')->once()->with($controller, $method)->andReturn($expect);
 

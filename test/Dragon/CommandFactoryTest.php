@@ -17,7 +17,7 @@ class CommandFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testMakeControllerCommand()
     {
-        $container = Mockery::mock('Dragon\DependencyContainer');
+        $container = Mockery::mock('Needle\DependencyContainer');
 
         $factory = new CommandFactory();
 
