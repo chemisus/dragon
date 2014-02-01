@@ -32,6 +32,6 @@ class MethodPathRoute implements Route
 
         $matched = $matched && preg_match($this->path, $request->path(), $parameters);
 
-        return new RouteResult($this, $matched, $parameters, $this->response_factory);
+        return new RouteResult($matched, $parameters, $this->response_factory);
     }
 }

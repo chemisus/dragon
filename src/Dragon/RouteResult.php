@@ -6,20 +6,17 @@ use Needle\DependencyContainer;
 
 class RouteResult implements ResponseFactory
 {
-    private $route;
     private $matched;
     private $parameters;
     private $response_factory;
 
     /**
-     * @param Route $route
      * @param boolean $matched
      * @param string[] $parameters
      * @param ResponseFactory $response_factory
      */
-    public function __construct(Route $route, $matched, array $parameters, ResponseFactory $response_factory)
+    public function __construct($matched, array $parameters, ResponseFactory $response_factory)
     {
-        $this->route = $route;
         $this->matched = $matched;
         $this->parameters = $parameters;
         $this->response_factory = $response_factory;
