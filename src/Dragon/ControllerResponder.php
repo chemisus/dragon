@@ -22,13 +22,11 @@ class ControllerResponder implements Responder
     private $method;
 
     /**
-     * @param DependencyContainer $container
      * @param string $class
      * @param string $method
      */
-    public function __construct(DependencyContainer $container, $class, $method)
+    public function __construct($class, $method)
     {
-        $this->container = $container;
         $this->class     = $class;
         $this->method    = $method;
     }
@@ -52,12 +50,13 @@ class ControllerResponder implements Responder
     /**
      * Creates an instance of the controller, then invokes the controller's method.
      *
+     * @param \Needle\DependencyContainer $container
      * @return Response
      */
-    public function response()
+    public function response(DependencyContainer $container)
     {
-        $object = $this->container->instance($this->class);
+        $object = $container->instance($this->class);
 
-        return $this->container->invoke($object, $this->method);
+        return $container->invoke($object, $this->method);
     }
 }

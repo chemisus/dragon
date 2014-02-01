@@ -14,4 +14,9 @@ interface Route
      * @return array
      */
     public function parameters();
+
+    /**
+     * @return Responder
+     */
+    public function response();
 }

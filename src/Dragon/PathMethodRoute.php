@@ -9,13 +9,15 @@ class PathMethodRoute implements Route
     private $query;
     private $form;
     private $parameters = [];
+    private $responder;
 
-    public function __construct($method, $path, $query, $form)
+    public function __construct($method, $path, $query, $form, Responder $responder)
     {
         $this->method = $method;
-        $this->path   = $path;
-        $this->query  = $query;
-        $this->form   = $form;
+        $this->path = $path;
+        $this->query = $query;
+        $this->form = $form;
+        $this->responder = $responder;
     }
 
     /**
@@ -84,5 +86,10 @@ class PathMethodRoute implements Route
     public function parameters()
     {
         return $this->parameters;
+    }
+
+    public function response()
+    {
+        return $this->responder;
     }
 }
