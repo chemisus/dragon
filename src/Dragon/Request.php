@@ -2,13 +2,38 @@
 
 namespace Dragon;
 
-interface Request
+class Request
 {
-    public function method();
+    private $method;
+    private $path;
+    private $query;
+    private $form;
 
-    public function path();
+    public function __construct($method, $path, array $query = [], array $form = [])
+    {
+        $this->method = $method;
+        $this->path = $path;
+        $this->query = $query;
+        $this->form = $form;
+    }
 
-    public function query();
+    public function path()
+    {
+        return $this->path;
+    }
 
-    public function form();
+    public function method()
+    {
+        return $this->method;
+    }
+
+    public function query()
+    {
+        return $this->query;
+    }
+
+    public function form()
+    {
+        return $this->form;
+    }
 }
